@@ -34,7 +34,34 @@ Then, restart Neovim and install the plugin with your plugin manager’s install
 require 'root'.cd('path/to/file.ext') -- Jump to the Project-Root of the file
 require 'root'.cd()                   -- Current editing file
 require 'root'.cd(nil, true)          -- Quietly
+```
 
+## Tips
+
+`:Root` command is useful by passing options on startup.
+
+First, define `:Root` command in your `init.lua` to make it callable at startup.
+
+```lua
+-- Timer hack to suppress noisy messages on startup
+local quiet = true
+vim.defer_fn(function()
+	quiet = false
+end, 20)
+
+vim.api.nvim_create_user_command('Root', function(opts)
+	require 'root'.cd(opts.args, quiet)
+end, {
+	nargs = '?',
+	complete = 'file',
+})
+
+```
+
+Then, you can pass it as an option when launching nvim:
+
+```bash
+nvim path/to/file.ext +Root
 ```
 
 ## License
