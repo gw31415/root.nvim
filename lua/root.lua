@@ -45,7 +45,8 @@ return {
 		local start_dir = vim.fn.fnamemodify(target_file, ':h')
 		local root = find_project_root(start_dir)
 		if root ~= '' then
-			vim.cmd('cd ' .. vim.fn.fnameescape(root))
+			local cmd = vim.api.nvim_get_var 'root_cd_cmd' or 'tcd'
+			vim.cmd(cmd .. ' ' .. vim.fn.fnameescape(root))
 			if not quiet then
 				vim.notify('Changed directory to ' .. root)
 			end
