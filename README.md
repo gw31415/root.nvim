@@ -31,6 +31,8 @@ Then, restart Neovim and install the plugin with your plugin manager’s install
 ## Usage
 
 ```lua
+vim.g.root_cd_cmd = 'tcd'             -- This is default command
+
 require 'root'.cd('path/to/file.ext') -- Jump to the Project-Root of the file
 require 'root'.cd()                   -- Current editing file
 require 'root'.cd(nil, true)          -- Quietly
