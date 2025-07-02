@@ -26,7 +26,7 @@ local function find_project_root(start_dir)
 		if parent == dir then break end
 		dir = parent
 	end
-	return ''
+	return nil
 end
 
 return {
@@ -44,7 +44,7 @@ return {
 		end
 		local start_dir = vim.fn.fnamemodify(target_file, ':h')
 		local root = find_project_root(start_dir)
-		if root ~= '' then
+		if root then
 			local cmd = vim.g.root_cd_cmd or 'tcd'
 			vim.cmd(cmd .. ' ' .. vim.fn.fnameescape(root))
 			if not quiet then
@@ -55,5 +55,6 @@ return {
 				vim.notify('Project root not found', vim.log.levels.ERROR)
 			end
 		end
-	end
+	end,
+	find_project_root = find_project_root,
 }
