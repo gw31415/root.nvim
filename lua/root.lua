@@ -1,9 +1,6 @@
 local function is_project_root(dir)
-	local markers = {
-		'.git', '.svn', '.hg', '.bzr',
-		'.gitignore', 'Rakefile', 'pom.xml',
-		'project.clj', 'package.json', 'manifest.json'
-	}
+	local markers = { '.git', '.svn', '.hg', '.bzr', 'Rakefile', 'pom.xml', 'project.clj', 'package.json',
+		'manifest.json' }
 	for _, marker in ipairs(markers) do
 		local path = dir .. '/' .. marker
 		if vim.fn.isdirectory(path) == 1 or vim.fn.filereadable(path) == 1 then
